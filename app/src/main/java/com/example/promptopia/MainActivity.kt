@@ -1,5 +1,6 @@
 package com.example.promptopia
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,7 +47,12 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun EntryView() {
+
     val imagePromptopia = painterResource(id = R.drawable.logotext)
+    val content = LocalContext.current
+    val intent = Intent(content, LoginActivity::class.java)
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -82,7 +89,10 @@ fun EntryView() {
 
 
         OutlinedButton(
-            onClick = { /*TODO*/ },
+            onClick = {
+                intent.putExtra("login", true)
+                content.startActivity(intent)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 10.dp),
@@ -91,7 +101,10 @@ fun EntryView() {
             Text(text = "LOGIN", color = Color.White)
         }
         OutlinedButton(
-            onClick = { /*TODO*/ },
+            onClick = {
+                intent.putExtra("login", false)
+                content.startActivity(intent)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 10.dp),
